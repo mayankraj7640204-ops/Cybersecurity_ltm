@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime Terrorz | Cybersecurity</title>
+    <meta name="description" content="Runtime Terrorz - Cybersecurity Hackathon Team">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css?v=2">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    
+    <!-- MediaPipe Hand Tracking -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <!-- Main JS -->
+    <script src="main.js?v=5" defer></script>
+</head>
+
+<body>
+    <video class="input_video" style="display: none;" playsinline></video>
+    <canvas id="hand-tracking-canvas" class="tracking-canvas"></canvas>
+    <div id="virtual-cursor" class="virtual-cursor"></div>
+    <canvas id="burst-canvas"></canvas>
+
+    <header class="hero-section">
+        <img src="logo.png" alt="Cybersecurity Logo" style="width: 120px; margin-bottom: var(--space-4); animation: pulse 2s infinite alternate;">
+        <h1>Runtime Terrorz</h1>
+        <p class="subtitle">Securing the digital frontier.</p>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Initiate Sequence</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section glass-section">
+            <div class="glass-card fade-up">
+                <h2>The Code</h2>
+                <p>We build our exploits and defenses in low-level Rust and highly optimized WebAssembly. Using multi-threaded heuristics, our code isolates threats securely.</p>
+            </div>
+        </section>
+
+        <section class="content-section glass-section">
+            <div class="glass-card fade-up">
+                <h2>Our Ideas</h2>
+                <p>What if the network was inherently hostile? Our primary idea revolves around "Pre-Execution Neutralization", intercepting malicious payloads dynamically during runtime through advanced AI models.</p>
+            </div>
+        </section>
+
+        <section class="content-section glass-section">
+            <div class="glass-card fade-up">
+                <h2>Threat Neutralized</h2>
+                <p>Don't just detect breaches. Stop them before execution starts. Real-time observability engineered for
+                    the next generation of exploits.</p>
+            </div>
+        </section>
+
+        <section class="content-section final-section">
+            <h2>Join the Resistance</h2>
+            <p>Team: Runtime Terrorz | Cybersecurity Domain</p>
+            
+            <div class="hold-scanner-wrapper">
+                <div class="hold-scanner-container" id="holdScanner">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring__circle-bg" stroke="rgba(0, 229, 255, 0.1)" stroke-width="6" fill="transparent" r="54" cx="60" cy="60"/>
+                        <circle class="progress-ring__circle" id="scannerProgress" stroke="var(--color-primary)" stroke-width="6" fill="transparent" r="54" cx="60" cy="60" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+                    </svg>
+                    <div class="scanner-btn" id="scannerBtn">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="lock-icon" id="lockIconSVG"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                </div>
+                <span class="scanner-hint">PRESS AND HOLD TO VERIFY</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal Overlay -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="login-box">
+            <div class="close-wrapper" style="position: absolute; top: var(--space-2); right: var(--space-3); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; z-index: 10;">
+                <svg class="progress-ring close-ring" width="44" height="44" style="position: absolute; top: 0; left: 0; pointer-events: none; transform: rotate(-90deg);">
+                    <circle stroke="rgba(0, 229, 255, 0.1)" stroke-width="3" fill="transparent" r="20" cx="22" cy="22"/>
+                    <circle id="closeProgressRing" stroke="var(--color-primary)" stroke-width="3" fill="transparent" r="20" cx="22" cy="22" stroke-dasharray="125.66" stroke-dashoffset="125.66" style="transition: stroke-dashoffset 0.1s linear;"/>
+                </svg>
+                <button class="close-btn" id="closeModal" style="position: static; margin: 0; top: auto; right: auto;">&times;</button>
+            </div>
+            <h2 class="glass-title" style="font-size: 2.5rem; text-shadow: none;">Terminal Access</h2>
+            <p class="subtitle" style="margin-bottom: var(--space-4); font-size: 1rem;">Authenticate to proceed.</p>
+            
+            <form class="login-form">
+                <div class="input-group">
+                    <label>Operator ID</label>
+                    <input type="text" placeholder="Enter ID" required>
+                </div>
+                <div class="input-group">
+                    <label>Passphrase</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="cyber-btn">Initialize Connection</button>
+            </form>
+            <p class="signup-link">New recruit? <a href="#">Request clearance</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
