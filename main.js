@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // 0. Environment Variables Injection
+    const teamName = import.meta.env.VITE_TEAM_NAME || "Runtime Terrorz";
+    const operatorId = import.meta.env.VITE_OPERATOR_ID || "ADMIN_777";
+
+    const titleElement = document.querySelector('h1');
+    if (titleElement) titleElement.textContent = teamName;
+
+    const operatorInput = document.querySelector('.input-group input[placeholder="Enter ID"]');
+    if (operatorInput) operatorInput.placeholder = `ID: ${operatorId}`;
     // 1. Accessibility Check
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
